@@ -1,0 +1,12 @@
+appId: com.brandenxia.physical-simulation-app
+productName: Physical Simulation App
+copyright: Copyright © 2023 Branden Xia
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null

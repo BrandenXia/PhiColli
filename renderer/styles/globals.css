@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-blue-100 via-sky-100 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700;
+  }
+
+  #__next {
+    @apply h-screen w-screen;
+  }
+}
