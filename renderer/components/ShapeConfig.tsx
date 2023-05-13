@@ -4,10 +4,16 @@ import React from "react";
 
 interface ShapeConfigProps {
   props: ShapeProps,
-  setProps: React.Dispatch<React.SetStateAction<ShapeProps>>
+  setProps: (props: ShapeProps) => void
+  deleteShape: () => void
 }
 
 export default function ShapeConfig(props: ShapeConfigProps) {
+  function deleteShape(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    props.deleteShape();
+  }
+
   function handleShapeChange(event: any) {
     if (event.target.value === "cube") {
       props.setProps({
@@ -23,7 +29,6 @@ export default function ShapeConfig(props: ShapeConfigProps) {
   }
 
   function handleColorChange(event: any) {
-    console.log(event.target.value);
     props.setProps({
       ...props.props,
       color: event.target.value
@@ -51,15 +56,17 @@ export default function ShapeConfig(props: ShapeConfigProps) {
     });
   }
   return (
-    <div className="p-2 text-zinc-700 dark:text-slate-200">
-      <h2>Object { props.props.index }</h2>
+    <div className="p-2 justify-between">
+      <span className="">Object { props.props.index }</span>
+      <button className="" onClick={deleteShape}>Delete</button>
+      <br/>
       <label htmlFor="shape">
         Shape:
         <select
           name="shape"
           id="shape"
           onChange={handleShapeChange}
-          className="bg-transparent"
+          className=""
         >
           <option value="cube">Cube</option>
           <option value="sphere">Sphere</option>
@@ -74,7 +81,7 @@ export default function ShapeConfig(props: ShapeConfigProps) {
           id="color"
           value={props.props.color}
           onChange={handleColorChange}
-          className="bg-transparent"
+          className=""
         />
       </label>
       <br/>
@@ -89,7 +96,7 @@ export default function ShapeConfig(props: ShapeConfigProps) {
           max={9}
           value={props.props.position[0]}
           onChange={handlePosition0Change}
-          className="bg-transparent"
+          className=""
         />
         <br/>
         <input
@@ -100,7 +107,7 @@ export default function ShapeConfig(props: ShapeConfigProps) {
           max={10}
           value={props.props.position[1]}
           onChange={handlePosition1Change}
-          className="bg-transparent"
+          className=""
         />
         <br/>
         <input
@@ -111,7 +118,7 @@ export default function ShapeConfig(props: ShapeConfigProps) {
           max={9}
           value={props.props.position[2]}
           onChange={handlePosition2Change}
-          className="bg-transparent"
+          className=""
         />
         <br/>
       </label>
