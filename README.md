@@ -18,6 +18,8 @@
 
 ## Description
 
+⚠️ This is a project still in development. ⚠️
+
 This is a simple physical simulation app that simulates the motion of two or more objects in 3D space for my Science Research Project.
 
 It used [Nextron](https://github.com/saltyshiomix/nextron) as a template.
