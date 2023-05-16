@@ -17,7 +17,7 @@ export default function Home() {
       </Head>
       <div className="mt-32">
         {
-
+          projects.length > 0 &&
           projects.map((projectName: string, index: number) => {
             return (
               <Link href={`/simulation/${projectName}`} key={index}>
