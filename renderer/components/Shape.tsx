@@ -20,8 +20,16 @@ export default function Shape(props: ShapeProps) {
     case "torus":
       shape = new TorusGeometry(1, 0.4, 32, 100)
   }
+
+
+
   return (
-      <mesh position={props.position} receiveShadow={true} castShadow={true}>
+      <mesh
+        position={props.position}
+        receiveShadow={true}
+        castShadow={true}
+        
+      >
         <primitive object={shape} attach={"geometry"} />
         <meshPhysicalMaterial color={props.color} reflectivity={0.5}/>
       </mesh>

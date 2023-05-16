@@ -12,23 +12,47 @@ const Store = require("electron-store");
 const store = new Store();
 
 export default function Simulation() {
-  const { projectName } = useRouter().query;
+  const router = useRouter();
+
+  const [projectName, setProjectName] = React.useState<string>(null);
 
   const [shapes, setShapes] = React.useState<ShapeProps[]>([]);
 
   const [count, setCount] = React.useState(0);
 
   useEffect(() => {
-    if (projectName === undefined) return;
-    setShapes(store.get(projectName));
+    readProject();
   }, []);
 
   useEffect(() => {
-    if (projectName === undefined) return;
-    if (store.get("projects") === undefined) store.set("projects", []);
-    store.set("projects", [...store.get("projects"), projectName]);
-    store.set(projectName, shapes);
+    saveProject();
   }, [shapes]);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setProjectName(router.query.projectName as string);
+    }
+  }, [router.isReady])
+
+  useEffect(() => {
+    readProject();
+  }, [projectName])
+
+  function readProject() {
+    if (!projectName) return;
+    setShapes(store.get(projectName));
+  }
+
+  function saveProject() {
+    if (!projectName) return;
+    if (!store.get("projects")) {
+      store.set("projects", [])
+    }
+    if (!store.get("projects").includes(projectName)) {
+      store.set("projects", [...store.get("projects"), projectName]);
+    }
+    store.set(projectName, shapes);
+  }
 
   function createShape() {
     setShapes([...shapes, new ShapeProps(count)]);
@@ -50,7 +74,7 @@ export default function Simulation() {
   return (
     <React.Fragment>
       <Head>
-        <title>Physical Simulation App</title>
+        <title>{projectName} - PhiColli</title>
       </Head>
       <Sidebar
         shapes={shapes}

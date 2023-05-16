@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "physical-stimulation-app",
+  "name": "phicolli",
   "description": "This is a simple physical simulation app that simulates the motion of two or more objects.",
   "version": "1.0.0",
   "author": "BrandenXia<xxtbranden@outlook.com>",
