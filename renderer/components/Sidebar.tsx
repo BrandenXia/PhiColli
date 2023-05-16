@@ -28,7 +28,7 @@ export default function Sidebar(props: SidebarProps) {
             <span className="text-md text-slate-50 align-middle inline sm:hidden lg:inline">Add Object</span>
           </button>
         </div>
-        <div className="divide-y-2 divide-gray-400/40 px-3">
+        <div className="divide-y-2 divide-gray-400/40">
           {
             props.shapes.length > 0 &&
             props.shapes.map((shape, index) => (

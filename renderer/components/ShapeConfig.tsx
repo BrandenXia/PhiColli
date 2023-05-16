@@ -1,4 +1,3 @@
-import { BoxGeometry, SphereGeometry } from "three";
 import { ShapeProps } from "../utils/types";
 import React from "react";
 
@@ -14,46 +13,31 @@ export default function ShapeConfig(props: ShapeConfigProps) {
     props.deleteShape();
   }
 
+  function setProp(prop: string, value: any) {
+    props.setProps({
+      ...props.props,
+      [prop]: value
+    });
+  }
+
   function handleShapeChange(event: any) {
-    if (event.target.value === "cube") {
-      props.setProps({
-        ...props.props,
-        shape: new BoxGeometry(1, 1, 1)
-      });
-    } else if (event.target.value === "sphere") {
-      props.setProps({
-        ...props.props,
-        shape: new SphereGeometry(1, 16, 16)
-      });
-    }
+    setProp("shape", event.target.value)
   }
 
   function handleColorChange(event: any) {
-    props.setProps({
-      ...props.props,
-      color: event.target.value
-    });
+    setProp("color", event.target.value)
   }
 
   function handlePosition0Change(event: any) {
-    props.setProps({
-      ...props.props,
-      position: [event.target.value, props.props.position[1], props.props.position[2]]
-    });
+    setProp("position", [event.target.value, props.props.position[1], props.props.position[2]])
   }
 
   function handlePosition1Change(event: any) {
-    props.setProps({
-      ...props.props,
-      position: [props.props.position[0], event.target.value, props.props.position[2]]
-    });
+    setProp("position", [props.props.position[0], event.target.value, props.props.position[2]])
   }
 
   function handlePosition2Change(event: any) {
-    props.setProps({
-      ...props.props,
-      position: [props.props.position[0], props.props.position[1], event.target.value]
-    });
+    setProp("position", [props.props.position[0], props.props.position[1], event.target.value])
   }
   return (
     <div className="p-2 justify-between">
@@ -70,6 +54,9 @@ export default function ShapeConfig(props: ShapeConfigProps) {
         >
           <option value="cube">Cube</option>
           <option value="sphere">Sphere</option>
+          <option value="cylinder">Cylinder</option>
+          <option value="cone">Cone</option>
+          <option value="torus">Torus</option>
         </select>
       </label>
       <br/>

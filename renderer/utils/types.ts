@@ -1,8 +1,6 @@
-import { BoxGeometry, BufferGeometry } from "three";
-
 export class ShapeProps {
     index: number;
-    shape: BufferGeometry = new BoxGeometry(1, 1, 1);
+    shape: string;
     position: [number, number, number] = [0, 0, 0];
     color: number = 0x66ccff;
 
