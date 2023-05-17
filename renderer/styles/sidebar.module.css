@@ -1,9 +1,5 @@
-.main {
-    height: calc(100vh - 3.5rem);
-}
-
 @media (min-width: 640px) {
-    .main {
+    .sidebar {
         height: calc(100vh - 4rem);
     }
 }

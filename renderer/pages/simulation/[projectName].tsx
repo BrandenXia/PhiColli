@@ -1,12 +1,11 @@
-import { Canvas } from "@react-three/fiber";
+import {Canvas} from "@react-three/fiber";
 import React, {useEffect} from "react";
-import Floor from "../../components/Floor";
 import Shape from "../../components/Shape";
 import OrbitControls from "../../components/OrbitControls";
 import Sidebar from "../../components/Sidebar";
-import { ShapeProps } from "../../utils/types";
+import {ShapeProps} from "../../utils/types";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -40,18 +39,37 @@ export default function Simulation() {
 
   function readProject() {
     if (!projectName) return;
-    setShapes(store.get(projectName));
+    const storage = store.get(projectName);
+    if (storage) {
+      setShapes(storage);
+      setCount(storage.length);
+    }
   }
 
   function saveProject() {
+    let projects = store.get("projects");
+    console.log(projects);
     if (!projectName) return;
-    if (!store.get("projects")) {
+    if (!shapes) return;
+
+    if (!projects) {
       store.set("projects", [])
     }
-    if (!store.get("projects").includes(projectName)) {
-      store.set("projects", [...store.get("projects"), projectName]);
-    }
+
     store.set(projectName, shapes);
+
+    for (let i = 0; i < projects.length; i++) {
+      if (projects[i][0] === projectName) {
+        const date = new Date();
+        projects[i][1] = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        store.set("projects", projects);
+        return;
+      }
+    }
+
+    const date = new Date();
+    projects.push([projectName, date.toLocaleDateString() + " " + date.toLocaleTimeString()]);
+    store.set("projects", projects);
   }
 
   function createShape() {
@@ -87,18 +105,18 @@ export default function Simulation() {
         camera={{
           position: [-6, 7, 7],
         }}
-        className="z-0 dark:brightness-75 transition-colors h-full"
+        className={"z-0 dark:brightness-75 transition-colors"}
       >
-        <ambientLight color={"white"} intensity={0.2} />
-        <pointLight position={[1, 10, -1]} castShadow={true} />
+        <ambientLight color={"white"} intensity={0.2}/>
+        <pointLight position={[1, 10, -1]} castShadow={true}/>
         {
           shapes.length > 0 &&
           shapes.map((shape, index) => (
             <Shape key={index} {...shape} />
           ))
         }
-        <OrbitControls />
-        <Floor position={[0, -1, 0]} />
+        <OrbitControls/>
+        <gridHelper args={[100, 100]}/>
       </Canvas>
     </React.Fragment>
   );

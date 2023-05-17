@@ -1,4 +1,4 @@
-import { ShapeProps } from "../utils/types";
+import {ShapeProps} from "../utils/types";
 import React from "react";
 
 interface ShapeConfigProps {
@@ -39,9 +39,10 @@ export default function ShapeConfig(props: ShapeConfigProps) {
   function handlePosition2Change(event: any) {
     setProp("position", [props.props.position[0], props.props.position[1], event.target.value])
   }
+
   return (
     <div className="p-2 justify-between">
-      <span className="">Object { props.props.index }</span>
+      <span className="">Object {props.props.index}</span>
       <button className="" onClick={deleteShape}>Delete</button>
       <br/>
       <label htmlFor="shape">

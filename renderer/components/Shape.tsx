@@ -1,5 +1,5 @@
 import React from "react";
-import { ShapeProps } from "../utils/types";
+import {ShapeProps} from "../utils/types";
 import {BoxGeometry, BufferGeometry, CylinderGeometry, SphereGeometry, TorusGeometry} from "three";
 
 
@@ -22,16 +22,15 @@ export default function Shape(props: ShapeProps) {
   }
 
 
-
   return (
-      <mesh
-        position={props.position}
-        receiveShadow={true}
-        castShadow={true}
-        
-      >
-        <primitive object={shape} attach={"geometry"} />
-        <meshPhysicalMaterial color={props.color} reflectivity={0.5}/>
-      </mesh>
+    <mesh
+      position={props.position}
+      receiveShadow={true}
+      castShadow={true}
+
+    >
+      <primitive object={shape} attach={"geometry"}/>
+      <meshPhysicalMaterial color={props.color} reflectivity={0.5}/>
+    </mesh>
   )
 }
