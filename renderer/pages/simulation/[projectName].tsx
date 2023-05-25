@@ -20,12 +20,10 @@ export default function Simulation() {
   const [shapes, setShapes] = React.useState<ShapeProps[]>([]);
 
   useEffect(() => {
-    console.log("Reading project")
     readProject();
   }, []);
 
   useEffect(() => {
-    console.log("Saving project")
     saveProject();
   }, [shapes]);
 

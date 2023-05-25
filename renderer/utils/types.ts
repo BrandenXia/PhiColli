@@ -8,7 +8,7 @@ interface ShapeProps {
 
 interface ShapeState {
   position: [number, number, number],
-  rotation?: [number, number, number],
+  rotation: [number, number, number],
   mass: number
 }
 

@@ -20,7 +20,7 @@ export default function Sidebar(props: SidebarProps) {
       color: 0x000000,
       velocity: [0, 0, 0],
       shapeState: {
-        position: [0, 0, 0],
+        position: [0, 1, 0],
         mass: 1,
         rotation: [0, 0, 0],
       }
@@ -46,7 +46,7 @@ export default function Sidebar(props: SidebarProps) {
         (configOpen ? "sm:w-1/5 h-64 overflow-y-auto " + style.sidebar : "")}
     >
       <div
-        className="flex justify-between text-right mb-3 sticky top-0 bg-slate-100 dark:bg-zinc-800 p-2 drop-shadow-sm dark:border-b dark:border-b-zinc-500"
+        className="z-30 flex justify-between text-right mb-3 sticky top-0 bg-slate-100 dark:bg-zinc-800 p-2 drop-shadow-sm dark:border-b dark:border-b-zinc-500"
       >
           <span className="mr-3" onClick={() => setConfigOpen(!configOpen)}>
             <Icon icon="icon-park-outline:setting-config" height={31} width={31}
