@@ -1,11 +1,13 @@
 import {Canvas} from "@react-three/fiber";
 import React, {useEffect} from "react";
-import Shape from "../../components/Shape";
 import OrbitControls from "../../components/OrbitControls";
 import Sidebar from "../../components/Sidebar";
-import {ShapeProps} from "../../utils/types";
 import Head from "next/head";
 import {useRouter} from "next/router";
+import {Physics} from "@react-three/cannon";
+import Floor from "../../components/Floor";
+import Shape from "../../components/Shape";
+import ShapeProps from "../../utils/types";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -17,13 +19,13 @@ export default function Simulation() {
 
   const [shapes, setShapes] = React.useState<ShapeProps[]>([]);
 
-  const [count, setCount] = React.useState(0);
-
   useEffect(() => {
+    console.log("Reading project")
     readProject();
   }, []);
 
   useEffect(() => {
+    console.log("Saving project")
     saveProject();
   }, [shapes]);
 
@@ -42,13 +44,11 @@ export default function Simulation() {
     const storage = store.get(projectName);
     if (storage) {
       setShapes(storage);
-      setCount(storage.length);
     }
   }
 
   function saveProject() {
     let projects = store.get("projects");
-    console.log(projects);
     if (!projectName) return;
     if (!shapes) return;
 
@@ -72,23 +72,6 @@ export default function Simulation() {
     store.set("projects", projects);
   }
 
-  function createShape() {
-    setShapes([...shapes, new ShapeProps(count)]);
-    setCount(count + 1);
-  }
-
-  function deleteShape(index: number) {
-    let newShapes = [...shapes];
-    newShapes.splice(index, 1);
-    setShapes(newShapes);
-  }
-
-  function setShape(index: number, shape: ShapeProps) {
-    let newShapes = [...shapes];
-    newShapes[index] = shape;
-    setShapes(newShapes);
-  }
-
   return (
     <React.Fragment>
       <Head>
@@ -96,27 +79,30 @@ export default function Simulation() {
       </Head>
       <Sidebar
         shapes={shapes}
-        createShape={createShape}
-        setShape={setShape}
-        deleteShape={deleteShape}
+        setShapes={setShapes}
       />
       <Canvas
         shadows={true}
         camera={{
-          position: [-6, 7, 7],
+          position: [0, 10, 10],
         }}
         className={"z-0 dark:brightness-75 transition-colors"}
       >
-        <ambientLight color={"white"} intensity={0.2}/>
-        <pointLight position={[1, 10, -1]} castShadow={true}/>
-        {
-          shapes.length > 0 &&
-          shapes.map((shape, index) => (
-            <Shape key={index} {...shape} />
-          ))
-        }
-        <OrbitControls/>
-        <gridHelper args={[100, 100]}/>
+        <Physics gravity={[0, -9.8, 0]} allowSleep={true}>
+          <ambientLight color={"white"} intensity={0.2}/>
+          <pointLight position={[1, 10, -1]} castShadow={true} intensity={5}/>
+          <OrbitControls/>
+          <gridHelper args={[100, 100]}/>
+          <axesHelper args={[100]}/>
+          <Floor/>
+          {
+            shapes.length > 0 && shapes.map((shape, index) => {
+              return (
+                <Shape id={shape.id} key={index} shape={shape.shape} color={shape.color} velocity={shape.velocity} shapeState={shape.shapeState}/>
+              )
+            })
+          }
+        </Physics>
       </Canvas>
     </React.Fragment>
   );
