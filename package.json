@@ -16,7 +16,8 @@
     "@react-three/fiber": "^8.13.0",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
-    "three": "^0.152.2"
+    "three": "^0.152.2",
+    "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.21.4",

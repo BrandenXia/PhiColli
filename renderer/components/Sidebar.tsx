@@ -3,7 +3,7 @@ import {Icon} from "@iconify/react";
 import React from "react";
 import ShapeProps from "../utils/types";
 import ShapeConfig from "./ShapeConfig";
-import {randomUUID} from "crypto";
+import randomName from "../utils/randomName";
 
 interface SidebarProps {
   shapes: ShapeProps[];
@@ -15,7 +15,7 @@ export default function Sidebar(props: SidebarProps) {
 
   function newShape() {
     props.setShapes([...props.shapes, {
-      id: randomUUID(),
+      id: randomName(),
       shape: "box",
       color: 0x000000,
       velocity: [0, 0, 0],

@@ -1,6 +1,6 @@
 interface ShapeProps {
   id: string,
-  shape: "box" | "sphere" | "cylinder",
+  shape: string | "box" | "sphere" | "cylinder",
   color: number,
   velocity: [number, number, number],
   shapeState: ShapeState;
